@@ -31,6 +31,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const pkg = __importStar(require("./config.json"));
+require("./db");
 const server = (0, express_1.default)();
 // Configurations
 server.use(body_parser_1.default.urlencoded({ extended: true, limit: "50mb" }));

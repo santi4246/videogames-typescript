@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import * as pkg from "./config.json";
+require("./db");
 
 const server = express();
 // Configurations
