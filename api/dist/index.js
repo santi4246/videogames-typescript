@@ -3,11 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv").config();
 const app_1 = __importDefault(require("./app"));
 const db_1 = require("./db");
-const PORT = 3001;
-db_1.sequelize.authenticate().then(() => {
+const PORT = process.env.PORT || 3002;
+db_1.sequelize.sync({ force: true }).then(() => {
     app_1.default.listen(PORT, () => {
-        console.log("Server is listening on port: ", PORT);
+        console.log(`Server is listening on port: ${PORT}`);
     });
 });

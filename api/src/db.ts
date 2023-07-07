@@ -4,14 +4,14 @@ import { Sequelize } from "sequelize";
 import fs from "fs";
 import path from "path";
 
-const DB_URL: string = "postgres://postgres:fIJJS5X17m494kjK@db.ugoynroixtskjknvtfiv.supabase.co:6543/postgres";
+const DB_URL = process.env.DB_URL || "postgres://postgres:fIJJS5X17m494kjK@db.ugoynroixtskjknvtfiv.supabase.co:6543/postgres";
 
 export const sequelize: Sequelize = new Sequelize(DB_URL, {
     logging: false,
     native: false
 });
 
-/* const basename = path.basename(__filename);
+const basename = path.basename(__filename);
 const modelDefiners: any[] = [];
 
 fs.readdirSync(path.join(__dirname, "/models"))
@@ -31,4 +31,4 @@ const { Videogame, Genre, Platform } = models;
 Videogame.belongsToMany(Genre, { through: "Videogame_Genre" });
 Genre.belongsToMany(Videogame, { through: "Videogame_Genre" });
 Videogame.belongsToMany(Platform, { through: "Videogame_Platform" });
-Platform.belongsToMany(Videogame, { through: "Videogame_Platform" }); */
+Platform.belongsToMany(Videogame, { through: "Videogame_Platform" });

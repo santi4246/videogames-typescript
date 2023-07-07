@@ -1,9 +1,10 @@
+require("dotenv").config();
 import server from "./app";
 import { sequelize } from "./db";
-const PORT: number = 3001;
+const PORT = process.env.PORT || 3002;
 
-sequelize.authenticate().then(() => {
+sequelize.sync({ force: true }).then(() => {
     server.listen(PORT, () => {
-        console.log("Server is listening on port: ", PORT);
+        console.log(`Server is listening on port: ${PORT}`);
     })
 });
