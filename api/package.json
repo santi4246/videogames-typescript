@@ -4,8 +4,7 @@
   "description": "App Videogames",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "tsc": "tsc"
+    "start": "tsc && node dist/index.js"
   },
   "keywords": [],
   "author": "Santiago L. Romero",

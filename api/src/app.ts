@@ -1,37 +1,49 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from 'express';
+import morgan from 'morgan';
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
-import morgan from "morgan";
+import dotenv from "dotenv";
+dotenv.config();
 import * as pkg from "./config.json";
-require("./db");
 
-const server = express();
-// Configurations
-server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-server.use(bodyParser.json({ limit: "50mb" }));
-server.use(cookieParser());
-server.use(morgan("dev"));
-server.use((req: Request, res: Response, next: NextFunction) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-    next();
-});
+class Server {
+    public app: express.Application;
 
-// Response endpoint
-server.get("/", (req: Request, res: Response, next: NextFunction) => {
-    return res.status(200).json({
-        author: pkg.author,
-        name: pkg.name,
-        description: pkg.description,
-        version: pkg.version
-    });
-});
+    constructor() {
+        this.app = express();
+        this.config();
+        this.routes();
+    }
 
-// Error catching endware
-server.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(500).json({message: err.message});
-});
+    public config(): void {
+        // Settings
+        this.app.set('port', process.env.PORT);
+        // middlewares
+        this.app.use(morgan('dev'));
+        this.app.use(express.urlencoded({extended: true, limit: "50mb"}));
+        this.app.use(express.json({ limit: "50mb" }));
+        this.app.use(cookieParser());
+        this.app.use((req: Request, res: Response, next: NextFunction) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Credentials", "true");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+            next();
+        });
+    }
 
-export default server;
+    public routes(): void {
+        const router: express.Router = express.Router();
+        // Error catching endware
+        this.app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+            res.status(500).json({message: err.message});
+        });
+    }
+
+    public start(): void {
+        this.app.listen(this.app.get('port'), () => {
+            console.log('Server is listening on port', this.app.get('port'));
+        });
+    }
+}
+
+export { Server } ;

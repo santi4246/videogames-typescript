@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
-dotenv.config({path: "./.env"});
+dotenv.config();
 import { Sequelize } from "sequelize";
 import fs from "fs";
 import path from "path";
 
-const DB_URL = process.env.DB_URL || "postgres://postgres:fIJJS5X17m494kjK@db.ugoynroixtskjknvtfiv.supabase.co:6543/postgres";
+const DB_URL = process.env.DB_URL;
 
 export const sequelize: Sequelize = new Sequelize(DB_URL, {
     logging: false,

@@ -5,11 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.models = exports.sequelize = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config({ path: "./.env" });
+dotenv_1.default.config();
 const sequelize_1 = require("sequelize");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const DB_URL = process.env.DB_URL || "postgres://postgres:fIJJS5X17m494kjK@db.ugoynroixtskjknvtfiv.supabase.co:6543/postgres";
+const DB_URL = process.env.DB_URL;
 exports.sequelize = new sequelize_1.Sequelize(DB_URL, {
     logging: false,
     native: false
