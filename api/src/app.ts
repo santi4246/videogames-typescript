@@ -1,9 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
-import * as pkg from "./config.json";
+import indexRoutes from "./routes";
+import videogamesRouter from './routes/videogames';
 
 class Server {
     public app: express.Application;
@@ -18,9 +20,10 @@ class Server {
         // Settings
         this.app.set('port', process.env.PORT);
         // middlewares
+        this.app.use(cors());
         this.app.use(morgan('dev'));
-        this.app.use(express.urlencoded({extended: true, limit: "50mb"}));
         this.app.use(express.json({ limit: "50mb" }));
+        this.app.use(express.urlencoded({extended: true, limit: "50mb"}));
         this.app.use(cookieParser());
         this.app.use((req: Request, res: Response, next: NextFunction) => {
             res.header("Access-Control-Allow-Origin", "*");
@@ -33,7 +36,9 @@ class Server {
 
     public routes(): void {
         const router: express.Router = express.Router();
-        // Error catching endware
+        this.app.use("/", indexRoutes);
+        this.app.use("/api/videogames", videogamesRouter);
+        // Error catching endware        
         this.app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
             res.status(500).json({message: err.message});
         });
