@@ -26,7 +26,7 @@ let capsEntries = entries.map(entry => [entry[0][0].toUpperCase() + entry[0].sli
 export let models = {...sequelize.models};
 models = Object.fromEntries(capsEntries);
 
-const { Videogame, Genre, Platform } = models;
+export const { Videogame, Genre, Platform } = models;
 
 Videogame.belongsToMany(Genre, { through: "Videogame_Genre" });
 Genre.belongsToMany(Videogame, { through: "Videogame_Genre" });

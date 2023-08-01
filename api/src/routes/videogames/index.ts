@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction, Router } from "express";
-import * as controllers from "../../controllers/index";
+import { Router } from "express";
+import * as controllers from "../../controllers/videogames";
 
 class VideogamesRoutes {
     router: Router;
