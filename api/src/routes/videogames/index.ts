@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction, Router } from "express";
+import * as controllers from "../../controllers/index";
 
 class VideogamesRoutes {
     router: Router;
@@ -7,12 +8,8 @@ class VideogamesRoutes {
         this.routes();
     }
 
-    listGames (req: Request, res: Response) {
-        return res.status(200).json({ message: `Videogames routes` });
-    }
-
-    routes() {
-        this.router.get("/", this.listGames);
+    public routes() {
+        this.router.get("/", controllers.getVideogames);
     }
     
 }
