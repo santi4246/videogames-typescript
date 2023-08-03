@@ -10,6 +10,8 @@ class VideogamesRoutes {
 
     public routes() {
         this.router.get("/", controllers.getVideogames);
+        this.router.get("/:id", controllers.getVideogame);
+        this.router.post("/", controllers.addGame);
     }
     
 }

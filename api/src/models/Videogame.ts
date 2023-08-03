@@ -36,5 +36,5 @@ module.exports = (sequelize: Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-    }, {tableName: "videogame", sequelize});
+    }, {tableName: "videogame", sequelize, timestamps: false});
 }

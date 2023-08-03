@@ -23,12 +23,14 @@ fs.readdirSync(path.join(__dirname, "/models"))
 modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map(entry => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
-export let models = {...sequelize.models};
+let models = {...sequelize.models};
 models = Object.fromEntries(capsEntries);
 
-export const { Videogame, Genre, Platform } = models;
+const { Videogame, Genre, Platform } = models;
 
 Videogame.belongsToMany(Genre, { through: "Videogame_Genre" });
 Genre.belongsToMany(Videogame, { through: "Videogame_Genre" });
 Videogame.belongsToMany(Platform, { through: "Videogame_Platform" });
 Platform.belongsToMany(Videogame, { through: "Videogame_Platform" });
+
+export { Videogame, Genre, Platform };

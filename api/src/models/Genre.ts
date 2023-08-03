@@ -16,5 +16,5 @@ module.exports = (sequelize: Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-    }, {tableName: "genre", sequelize});
+    }, {tableName: "genre", sequelize, timestamps: false});
 }
