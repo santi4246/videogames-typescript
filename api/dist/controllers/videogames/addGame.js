@@ -19,7 +19,9 @@ const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     yield Promise.all(genresGame);
     yield Promise.all(platformsGame);
     const genresDB = yield db_1.Genre.findAll();
-    console.log(genresDB);
+    for (let i = 0; i < genresDB.length; i++) {
+        // await game.addGenre(genresDB[i].dataValues.id);  Mixins con Typescript y Sequelize
+    }
     return res.status(201).json(game);
 });
 exports.addGame = addGame;

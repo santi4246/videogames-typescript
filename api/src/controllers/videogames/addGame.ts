@@ -11,7 +11,7 @@ const addGame = async (req: Request, res: Response, next: NextFunction) => {
     await Promise.all(platformsGame);
     const genresDB = await Genre.findAll();    
     for (let i = 0; i < genresDB.length; i++) {
-        // await game.addGenre(genresDB[i].dataValues.id);
+        // await game.addGenre(genresDB[i].dataValues.id);  Mixins con Typescript y Sequelize
     }
     return res.status(201).json(game);
 }
