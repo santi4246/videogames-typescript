@@ -1,12 +1,30 @@
-import { Sequelize, Model, DataTypes } from 'sequelize';
+import { Sequelize, Model, DataTypes, Optional } from 'sequelize';
 
-class Videogame extends Model {
+export interface VideogameAttributes {
+    id: string;
+    name: string;
+    description: string;
+    launch: Date;
+    rating: number;
+    img: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
+}
+
+export interface VideogameInput extends Optional<VideogameAttributes, "id"> {}
+export interface VideogameOutput extends Required<VideogameAttributes> {}
+
+export class Videogame extends Model <VideogameAttributes, VideogameOutput> implements VideogameAttributes {
     declare id: string;
     declare name: string;
     declare description: string;
-    declare launch: string;
+    declare launch: Date;
     declare rating: number;
     declare img: string;
+    declare readonly createdAt: Date;
+    declare readonly updatedAt: Date;
+    declare readonly deletedAt: Date;
 }
 
 module.exports = (sequelize: Sequelize) => {    
@@ -29,7 +47,7 @@ module.exports = (sequelize: Sequelize) => {
             defaultValue: DataTypes.NOW
         },
         rating: {
-            type: DataTypes.STRING,
+            type: DataTypes.NUMBER,
             allowNull: false
         },
         img: {

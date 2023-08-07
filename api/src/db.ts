@@ -28,8 +28,8 @@ models = Object.fromEntries(capsEntries);
 
 const { Videogame, Genre, Platform } = models;
 
-Videogame.belongsToMany(Genre, { through: "Videogame_Genre" });
-Genre.belongsToMany(Videogame, { through: "Videogame_Genre" });
+Videogame.belongsToMany(Genre, { through: "Videogame_Genre", foreignKey: "GenreId" });
+Genre.belongsToMany(Videogame, { through: "Videogame_Genre", foreignKey: "VideogameId" });
 Videogame.belongsToMany(Platform, { through: "Videogame_Platform" });
 Platform.belongsToMany(Videogame, { through: "Videogame_Platform" });
 
