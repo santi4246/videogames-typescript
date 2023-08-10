@@ -1,20 +1,19 @@
-import { Sequelize, Model, DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
+import sequelize from "../db";
 
 class Platform extends Model {
     declare id: string;
     declare name: string;
 }
 
-module.exports = (sequelize: Sequelize) => {
-    Platform.init({
-        id: {
-            type: DataTypes.STRING,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    }, {tableName: "platform", sequelize, timestamps: false});
-}
+Platform.init({
+    id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {tableName: "platform", sequelize, timestamps: false});

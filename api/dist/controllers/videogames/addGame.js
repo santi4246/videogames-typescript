@@ -10,17 +10,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addGame = void 0;
-const db_1 = require("../../db");
+const uuid_1 = require("uuid");
+const Videogame_1 = require("../../models/Videogame");
+const Genre_1 = require("../../models/Genre");
 const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, launch, rating, description, genres, platforms, img } = req.body;
-    let game = yield db_1.Videogame.create({ name, launch, rating, description, img });
-    const genresGame = genres.map((genre) => db_1.Genre.create({ name: genre }));
-    const platformsGame = platforms.map((platform) => db_1.Platform.create({ name: platform }));
+    const params = {
+        id: (0, uuid_1.v4)(),
+        name: req.body.name,
+        description: req.body.description,
+        launch: req.body.launch,
+        rating: req.body.rating,
+        img: req.body.img
+    };
+    let game = yield Videogame_1.Videogame.create(params);
+    const genresGame = req.body.genres.map((genre) => Genre_1.Genre.create({ id: (0, uuid_1.v4)(), name: genre }));
     yield Promise.all(genresGame);
-    yield Promise.all(platformsGame);
-    const genresDB = yield db_1.Genre.findAll();
+    const genresDB = yield Genre_1.Genre.findAll();
     for (let i = 0; i < genresDB.length; i++) {
-        // await game.addGenre(genresDB[i].dataValues.id);  Mixins con Typescript y Sequelize
+        yield game.addGenre(genresDB[i].id);
     }
     return res.status(201).json(game);
 });

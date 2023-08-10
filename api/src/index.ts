@@ -1,9 +1,9 @@
 import { Server } from "./app";
-import { sequelize } from "./db";
+import dbInit from "./db/init";
 
 const server = new Server();
 
 
-sequelize.sync({ force: true }).then(() => {
+dbInit().then(() => {
     server.start();
 });

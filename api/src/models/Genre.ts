@@ -1,4 +1,6 @@
-import { Sequelize, Model, DataTypes, Optional } from "sequelize";
+import { Model, DataTypes, Optional, BelongsToManyAddAssociationMixin } from "sequelize";
+import sequelize from "../db/config";
+import { Videogame } from "./Videogame";
 
 export interface GenreAttributes {
     id: string;
@@ -17,18 +19,17 @@ export class Genre extends Model <GenreAttributes, GenreInput> implements GenreA
     declare readonly createdAt: Date;
     declare readonly updatedAt: Date;
     declare readonly deletedAt: Date;
+    declare addGame: BelongsToManyAddAssociationMixin <Videogame, string>
 }
 
-module.exports = (sequelize: Sequelize) => {
-    Genre.init({
-        id: {
-            type: DataTypes.STRING,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    }, {tableName: "genre", sequelize, timestamps: false});
-}
+Genre.init({
+    id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, { tableName: "genre", sequelize, timestamps: true, paranoid: true });

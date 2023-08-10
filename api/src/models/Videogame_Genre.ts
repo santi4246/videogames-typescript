@@ -1,4 +1,7 @@
-import { Sequelize, Optional, Model, DataTypes } from "sequelize";
+import { Optional, Model, DataTypes } from "sequelize";
+import sequelize from "../db/config";
+import { Videogame } from "./Videogame";
+import { Genre } from "./Genre";
 
 interface VideogameGenreAttributes {
     id: string;
@@ -21,22 +24,26 @@ export class VideogameGenre extends Model <VideogameGenreAttributes, VideogameGe
     declare readonly deletedAt: Date;
 }
 
-module.exports = (sequelize: Sequelize) => {
-    VideogameGenre.init({
-        id: {
-            type: DataTypes.STRING,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
-        VideogameId: {
-            type: DataTypes.STRING,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
-        GenreId: {
-            type: DataTypes.STRING,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+VideogameGenre.init({
+    id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false
+    },
+    VideogameId: {
+        type: DataTypes.UUID,
+        references: {
+            model: Genre, key: "id"
         }
-    }, {tableName: "Videogame_Genre", sequelize, timestamps: false})    
-}
+    },
+    GenreId: {
+        type: DataTypes.UUID,
+        references: {
+            model: Videogame, key: "id"
+        }
+    }
+}, { sequelize })
+
+Videogame.belongsToMany(Genre, { through: "Videogame_Genres", foreignKey: "GenreId" });
+Genre.belongsToMany(Videogame, { through: "Videogame_Genres", foreignKey: "VideogameId" });

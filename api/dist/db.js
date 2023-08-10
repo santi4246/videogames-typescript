@@ -30,7 +30,5 @@ const { Videogame, Genre, Platform } = models;
 exports.Videogame = Videogame;
 exports.Genre = Genre;
 exports.Platform = Platform;
-Videogame.belongsToMany(Genre, { through: "Videogame_Genre", foreignKey: "GenreId" });
-Genre.belongsToMany(Videogame, { through: "Videogame_Genre", foreignKey: "VideogameId" });
 Videogame.belongsToMany(Platform, { through: "Videogame_Platform" });
 Platform.belongsToMany(Videogame, { through: "Videogame_Platform" });

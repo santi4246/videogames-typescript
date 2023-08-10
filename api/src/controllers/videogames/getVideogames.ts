@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import axios from "axios";
-import { Videogame } from "../../db";
 const { APIKEY } = process.env;
 
 interface Game {

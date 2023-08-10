@@ -1,8 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = require("./app");
-const db_1 = require("./db");
+const init_1 = __importDefault(require("./db/init"));
 const server = new app_1.Server();
-db_1.sequelize.sync({ force: true }).then(() => {
+(0, init_1.default)().then(() => {
     server.start();
 });

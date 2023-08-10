@@ -1,17 +1,24 @@
 import { Request, Response, NextFunction } from "express";
-import { Videogame, Genre, Platform } from "../../db";
+import { v4 as uuidv4 } from "uuid";
+import { Videogame, VideogameInput } from "../../models/Videogame";
+import { Genre } from "../../models/Genre";
 
 
-const addGame = async (req: Request, res: Response, next: NextFunction) => {
-    const { name, launch, rating, description, genres, platforms, img } = req.body;
-    let game = await Videogame.create({ name, launch, rating, description, img });
-    const genresGame: string[] = genres.map((genre: string) => Genre.create({ name: genre }));
-    const platformsGame: string[] = platforms.map((platform: string) => Platform.create({ name: platform }));
+const addGame = async (req: Request, res: Response, next: NextFunction) => {    
+    const params: VideogameInput = { 
+        id: uuidv4(), 
+        name: req.body.name, 
+        description: req.body.description,
+        launch: req.body.launch,
+        rating: req.body.rating,
+        img: req.body.img
+     };
+    let game = await Videogame.create(params);
+    const genresGame: string[] = req.body.genres.map((genre: string) => Genre.create({ id: uuidv4(), name: genre }));
     await Promise.all(genresGame);
-    await Promise.all(platformsGame);
     const genresDB = await Genre.findAll();    
     for (let i = 0; i < genresDB.length; i++) {
-        // await game.addGenre(genresDB[i].dataValues.id);  Mixins con Typescript y Sequelize
+        await game.addGenre(genresDB[i].id);
     }
     return res.status(201).json(game);
 }
