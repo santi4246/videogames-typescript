@@ -21,15 +21,15 @@ VideogameGenre.init({
     VideogameId: {
         type: sequelize_1.DataTypes.UUID,
         references: {
-            model: Genre_1.Genre, key: "id"
+            model: Videogame_1.Videogame, key: "id"
         }
     },
     GenreId: {
         type: sequelize_1.DataTypes.UUID,
         references: {
-            model: Videogame_1.Videogame, key: "id"
+            model: Genre_1.Genre, key: "id"
         }
     }
-}, { sequelize: config_1.default });
-Videogame_1.Videogame.belongsToMany(Genre_1.Genre, { through: "Videogame_Genres", foreignKey: "GenreId" });
-Genre_1.Genre.belongsToMany(Videogame_1.Videogame, { through: "Videogame_Genres", foreignKey: "VideogameId" });
+}, { tableName: "Videogame_Genre", sequelize: config_1.default, timestamps: true });
+Videogame_1.Videogame.belongsToMany(Genre_1.Genre, { through: "Videogame_Genre", foreignKey: "VideogameId" });
+Genre_1.Genre.belongsToMany(Videogame_1.Videogame, { through: "Videogame_Genre", foreignKey: "GenreId" });

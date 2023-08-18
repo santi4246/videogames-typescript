@@ -34,16 +34,16 @@ VideogameGenre.init({
     VideogameId: {
         type: DataTypes.UUID,
         references: {
-            model: Genre, key: "id"
+            model: Videogame, key: "id"
         }
     },
     GenreId: {
         type: DataTypes.UUID,
         references: {
-            model: Videogame, key: "id"
+            model: Genre, key: "id"
         }
     }
-}, { sequelize })
+}, { tableName: "Videogame_Genre", sequelize, timestamps: true })
 
-Videogame.belongsToMany(Genre, { through: "Videogame_Genres", foreignKey: "GenreId" });
-Genre.belongsToMany(Videogame, { through: "Videogame_Genres", foreignKey: "VideogameId" });
+Videogame.belongsToMany(Genre, { through: "Videogame_Genre", foreignKey: "VideogameId" });
+Genre.belongsToMany(Videogame, { through: "Videogame_Genre", foreignKey: "GenreId" });

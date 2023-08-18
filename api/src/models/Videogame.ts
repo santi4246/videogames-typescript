@@ -14,8 +14,8 @@ export interface VideogameAttributes {
     deletedAt?: Date;
 }
 
-export interface VideogameInput extends Optional<VideogameAttributes, "id"> { }
-export interface VideogameOutput extends Required<VideogameAttributes> { }
+export interface VideogameInput extends Optional <VideogameAttributes, "id"> { }
+export interface VideogameOutput extends Required <VideogameAttributes> { }
 
 export class Videogame extends Model <VideogameAttributes, VideogameInput> implements VideogameAttributes {
     declare id: string;
