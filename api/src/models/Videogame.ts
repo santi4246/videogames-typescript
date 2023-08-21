@@ -34,7 +34,8 @@ Videogame.init({
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -56,4 +57,4 @@ Videogame.init({
         type: DataTypes.STRING,
         allowNull: false
     }
-}, { tableName: "videogame", sequelize, timestamps: true, paranoid: true });
+}, { sequelize, timestamps: true, paranoid: true });

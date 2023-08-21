@@ -23,12 +23,17 @@ const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         img: req.body.img
     };
     let game = yield Videogame_1.Videogame.create(params);
-    const genresGame = req.body.genres.map((genre) => Genre_1.Genre.create({ id: (0, uuid_1.v4)(), name: genre }));
-    yield Promise.all(genresGame);
-    const genresDB = yield Genre_1.Genre.findAll();
-    for (let i = 0; i < genresDB.length; i++) {
-        yield game.addGenre(genresDB[i].id);
-    }
-    return res.status(201).json(game);
+    let genres = req.body.genres.map((genre) => __awaiter(void 0, void 0, void 0, function* () {
+        yield Genre_1.Genre.create({ name: genre });
+    }));
+    yield Promise.all(genres);
+    genres = yield Genre_1.Genre.findAll();
+    genres.map((genre) => __awaiter(void 0, void 0, void 0, function* () {
+        yield game.addGenre(genre.dataValues.id);
+    }));
+    // Crea los registros y los asocia pero no devuelve los resultados incluidos
+    // let Game = await Videogame.findOne({ where: { name: game.name }, include: Genre });
+    let Game = yield Videogame_1.Videogame.findAll({ include: Genre_1.Genre });
+    return res.status(201).json(Game);
 });
 exports.addGame = addGame;

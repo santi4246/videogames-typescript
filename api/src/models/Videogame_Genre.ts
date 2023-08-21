@@ -27,8 +27,8 @@ export class VideogameGenre extends Model <VideogameGenreAttributes, VideogameGe
 VideogameGenre.init({
     id: {
         type: DataTypes.UUID,
-        primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
         allowNull: false
     },
     VideogameId: {
@@ -43,7 +43,7 @@ VideogameGenre.init({
             model: Genre, key: "id"
         }
     }
-}, { tableName: "Videogame_Genre", sequelize, timestamps: true })
+}, { sequelize, timestamps: true })
 
-Videogame.belongsToMany(Genre, { through: "Videogame_Genre", foreignKey: "VideogameId" });
-Genre.belongsToMany(Videogame, { through: "Videogame_Genre", foreignKey: "GenreId" });
+Videogame.belongsToMany(Genre, { through: VideogameGenre, foreignKey: "VideogameId" });
+Genre.belongsToMany(Videogame, { through: VideogameGenre, foreignKey: "GenreId" });

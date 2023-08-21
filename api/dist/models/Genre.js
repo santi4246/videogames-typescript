@@ -13,10 +13,11 @@ Genre.init({
     id: {
         type: sequelize_1.DataTypes.UUID,
         primaryKey: true,
-        defaultValue: sequelize_1.DataTypes.UUIDV4
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
+        allowNull: false
     },
     name: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     }
-}, { tableName: "genre", sequelize: config_1.default, timestamps: true, paranoid: true });
+}, { sequelize: config_1.default, timestamps: true, paranoid: true });

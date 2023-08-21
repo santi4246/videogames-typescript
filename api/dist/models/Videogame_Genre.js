@@ -14,8 +14,8 @@ exports.VideogameGenre = VideogameGenre;
 VideogameGenre.init({
     id: {
         type: sequelize_1.DataTypes.UUID,
-        primaryKey: true,
         defaultValue: sequelize_1.DataTypes.UUIDV4,
+        primaryKey: true,
         allowNull: false
     },
     VideogameId: {
@@ -30,6 +30,6 @@ VideogameGenre.init({
             model: Genre_1.Genre, key: "id"
         }
     }
-}, { tableName: "Videogame_Genre", sequelize: config_1.default, timestamps: true });
-Videogame_1.Videogame.belongsToMany(Genre_1.Genre, { through: "Videogame_Genre", foreignKey: "VideogameId" });
-Genre_1.Genre.belongsToMany(Videogame_1.Videogame, { through: "Videogame_Genre", foreignKey: "GenreId" });
+}, { sequelize: config_1.default, timestamps: true });
+Videogame_1.Videogame.belongsToMany(Genre_1.Genre, { through: VideogameGenre, foreignKey: "VideogameId" });
+Genre_1.Genre.belongsToMany(Videogame_1.Videogame, { through: VideogameGenre, foreignKey: "GenreId" });

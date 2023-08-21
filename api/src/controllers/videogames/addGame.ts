@@ -12,15 +12,20 @@ const addGame = async (req: Request, res: Response, next: NextFunction) => {
         launch: req.body.launch,
         rating: req.body.rating,
         img: req.body.img
-     };
+    };
     let game = await Videogame.create(params);
-    const genresGame: string[] = req.body.genres.map((genre: string) => Genre.create({ id: uuidv4(), name: genre }));
-    await Promise.all(genresGame);
-    const genresDB = await Genre.findAll();    
-    for (let i = 0; i < genresDB.length; i++) {
-        await game.addGenre(genresDB[i].id);
-    }
-    return res.status(201).json(game);
+    let genres = req.body.genres.map(async (genre: string) => {
+        await Genre.create({ name: genre });        
+    });
+    await Promise.all(genres);
+    genres = await Genre.findAll();
+    genres.map(async (genre: Genre) => {
+        await game.addGenre(genre.dataValues.id);
+    });
+    // Crea los registros y los asocia pero no devuelve los resultados incluidos
+    let Game = await Videogame.findOne({ where: { name: game.name }, include: Genre });
+    // let Game = await Videogame.findAll({ include: Genre });
+    return res.status(201).json(Game);
 }
 
 export { addGame };
