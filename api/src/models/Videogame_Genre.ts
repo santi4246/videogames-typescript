@@ -45,5 +45,5 @@ VideogameGenre.init({
     }
 }, { sequelize, timestamps: true })
 
-Videogame.belongsToMany(Genre, { through: VideogameGenre, foreignKey: "VideogameId" });
-Genre.belongsToMany(Videogame, { through: VideogameGenre, foreignKey: "GenreId" });
+Videogame.belongsToMany(Genre, { through: VideogameGenre, foreignKey: "VideogameId", as: "genres" });
+Genre.belongsToMany(Videogame, { through: VideogameGenre, foreignKey: "GenreId", as: "games" });

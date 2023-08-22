@@ -1,4 +1,4 @@
-import { Model, DataTypes, Optional, BelongsToManyAddAssociationMixin } from 'sequelize';
+import { Model, DataTypes, Optional, BelongsToManyAddAssociationMixin, NonAttribute } from 'sequelize';
 import { Genre } from "./Genre";
 import sequelize from "../db/config";
 
@@ -27,7 +27,8 @@ export class Videogame extends Model <VideogameAttributes, VideogameInput> imple
     declare readonly createdAt: Date;
     declare readonly updatedAt: Date;
     declare readonly deletedAt: Date;
-    declare addGenre: BelongsToManyAddAssociationMixin <Genre, string>    
+    declare addGenre: BelongsToManyAddAssociationMixin <Genre, string>
+    declare genres: NonAttribute <Genre[]>
 }
 
 Videogame.init({

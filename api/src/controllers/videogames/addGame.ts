@@ -11,8 +11,8 @@ const addGame = async (req: Request, res: Response, next: NextFunction) => {
         description: req.body.description,
         launch: req.body.launch,
         rating: req.body.rating,
-        img: req.body.img
-    };
+        img: req.body.img        
+    };    
     let game = await Videogame.create(params);
     let genres = req.body.genres.map(async (genre: string) => {
         await Genre.create({ name: genre });        
@@ -23,8 +23,12 @@ const addGame = async (req: Request, res: Response, next: NextFunction) => {
         await game.addGenre(genre.dataValues.id);
     });
     // Crea los registros y los asocia pero no devuelve los resultados incluidos
-    let Game = await Videogame.findOne({ where: { name: game.name }, include: Genre });
-    // let Game = await Videogame.findAll({ include: Genre });
+    let Game = await Videogame.findByPk(game.id, { 
+        include: [{ 
+            model: Genre, as: "genres", attributes: ["name"]            
+        }] 
+    });
+    // let Game = await Videogame.findAll({ include: [{ model: Genre, as: "genres" }] });
     return res.status(201).json(Game);
 }
 
