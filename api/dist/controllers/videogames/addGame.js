@@ -20,7 +20,7 @@ const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         description: req.body.description,
         launch: req.body.launch,
         rating: req.body.rating,
-        img: req.body.img,
+        img: req.body.img
     };
     let game = yield Videogame_1.Videogame.create(params);
     let genres = req.body.genres.map((genre) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,10 +34,9 @@ const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     // Crea los registros y los asocia pero no devuelve los resultados incluidos
     let Game = yield Videogame_1.Videogame.findByPk(game.id, {
         include: [{
-                model: Genre_1.Genre, as: "genres", attributes: ["name"]
+                model: Genre_1.Genre, as: "genres"
             }]
     });
-    // let Game = await Videogame.findAll({ include: [{ model: Genre, as: "genres" }] });
     return res.status(201).json(Game);
 });
 exports.addGame = addGame;

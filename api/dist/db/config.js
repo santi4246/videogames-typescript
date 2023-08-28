@@ -11,6 +11,4 @@ const sequelize = new sequelize_1.Sequelize(DB_URL, {
     logging: false,
     native: false
 });
-/* Videogame.belongsToMany(Platform, { through: "Videogame_Platform" });
-Platform.belongsToMany(Videogame, { through: "Videogame_Platform" }); */
 exports.default = sequelize;

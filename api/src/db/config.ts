@@ -9,7 +9,4 @@ const sequelize: Sequelize = new Sequelize(DB_URL, {
     native: false
 });
 
-/* Videogame.belongsToMany(Platform, { through: "Videogame_Platform" });
-Platform.belongsToMany(Videogame, { through: "Videogame_Platform" }); */
-
 export default sequelize;

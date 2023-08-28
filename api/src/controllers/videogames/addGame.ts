@@ -25,10 +25,9 @@ const addGame = async (req: Request, res: Response, next: NextFunction) => {
     // Crea los registros y los asocia pero no devuelve los resultados incluidos
     let Game = await Videogame.findByPk(game.id, { 
         include: [{ 
-            model: Genre, as: "genres", attributes: ["name"]            
-        }] 
+            model: Genre, as: "genres"
+        }]        
     });
-    // let Game = await Videogame.findAll({ include: [{ model: Genre, as: "genres" }] });
     return res.status(201).json(Game);
 }
 

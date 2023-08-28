@@ -34,6 +34,7 @@ class VideogamesRoutes {
         this.router.get("/", controllers.getVideogames);
         this.router.get("/:id", controllers.getVideogame);
         this.router.post("/", controllers.addGame);
+        this.router.get("/test/:id", controllers.listGame);
     }
 }
 const videogamesRoutes = new VideogamesRoutes();
