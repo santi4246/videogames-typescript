@@ -13,6 +13,7 @@ exports.addGame = void 0;
 const uuid_1 = require("uuid");
 const Videogame_1 = require("../../models/Videogame");
 const Genre_1 = require("../../models/Genre");
+const Platform_1 = require("../../models/Platform");
 const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = {
         id: (0, uuid_1.v4)(),
@@ -24,17 +25,19 @@ const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     };
     let game = yield Videogame_1.Videogame.create(params);
     let genres = req.body.genres.map((genre) => __awaiter(void 0, void 0, void 0, function* () {
-        yield Genre_1.Genre.create({ name: genre });
+        const genreDB = yield Genre_1.Genre.create({ name: genre });
+        yield game.addGenre(genreDB.dataValues.id);
     }));
-    yield Promise.all(genres);
-    genres = yield Genre_1.Genre.findAll();
-    genres.map((genre) => __awaiter(void 0, void 0, void 0, function* () {
-        yield game.addGenre(genre.dataValues.id);
+    let platforms = req.body.platforms.map((platform) => __awaiter(void 0, void 0, void 0, function* () {
+        const platformDB = yield Platform_1.Platform.create({ name: platform });
+        yield game.addPlatform(platformDB.dataValues.id);
     }));
-    // Crea los registros y los asocia pero no devuelve los resultados incluidos
+    yield Promise.all([genres, platforms]);
     let Game = yield Videogame_1.Videogame.findByPk(game.id, {
         include: [{
                 model: Genre_1.Genre, as: "genres"
+            }, {
+                model: Platform_1.Platform, as: "platforms"
             }]
     });
     return res.status(201).json(Game);

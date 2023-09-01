@@ -12,10 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.listGame = void 0;
 const Videogame_1 = require("../../models/Videogame");
 const Genre_1 = require("../../models/Genre");
+const Platform_1 = require("../../models/Platform");
 const listGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const gameDB = yield Videogame_1.Videogame.findByPk(id, { include: [{
                 model: Genre_1.Genre, as: "genres"
+            }, {
+                model: Platform_1.Platform, as: "platforms"
             }] });
     const Game = {
         id: gameDB === null || gameDB === void 0 ? void 0 : gameDB.id,
@@ -24,6 +27,7 @@ const listGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         rating: String(gameDB === null || gameDB === void 0 ? void 0 : gameDB.rating),
         description: gameDB === null || gameDB === void 0 ? void 0 : gameDB.description,
         genres: gameDB === null || gameDB === void 0 ? void 0 : gameDB.genres.map(e => e.name),
+        platforms: gameDB === null || gameDB === void 0 ? void 0 : gameDB.platforms.map(e => e.name),
         img: gameDB === null || gameDB === void 0 ? void 0 : gameDB.img
     };
     return res.status(200).json(Game);
