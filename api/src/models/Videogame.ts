@@ -1,4 +1,4 @@
-import { Model, DataTypes, Optional, BelongsToManyAddAssociationMixin, NonAttribute, Association } from 'sequelize';
+import { Model, DataTypes, Optional, BelongsToManyAddAssociationMixin, NonAttribute } from 'sequelize';
 import sequelize from "../db/config";
 import { Genre } from "./Genre";
 import { Platform } from "./Platform";
