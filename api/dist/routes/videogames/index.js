@@ -25,6 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const controllers = __importStar(require("../../controllers/videogames"));
+const middlewares = __importStar(require("../../middlewares"));
 class VideogamesRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
@@ -33,7 +34,7 @@ class VideogamesRoutes {
     routes() {
         this.router.get("/", controllers.getVideogames);
         this.router.get("/:id", controllers.getVideogame);
-        this.router.post("/", controllers.addGame);
+        this.router.post("/", middlewares.validate, controllers.addGame);
         this.router.get("/test/:id", controllers.listGame);
     }
 }
