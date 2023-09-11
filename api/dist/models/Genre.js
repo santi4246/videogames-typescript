@@ -20,4 +20,4 @@ Genre.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     }
-}, { sequelize: config_1.default, timestamps: true, paranoid: true });
+}, { sequelize: config_1.default, timestamps: true, paranoid: false });

@@ -31,4 +31,4 @@ Genre.init({
         type: DataTypes.STRING,
         allowNull: false
     }
-}, { sequelize, timestamps: true, paranoid: true });
+}, { sequelize, timestamps: true, paranoid: false });

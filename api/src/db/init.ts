@@ -4,7 +4,7 @@ import { VideogameGenre } from "../models/Videogame_Genre";
 import { Platform } from "../models/Platform";
 import { VideogamePlatform } from "../models/Videogame_Platform";
 
-const dbInit = () => Promise.all([
+const dbInit = async () => await Promise.all([
     Videogame.sync({ force: true }),
     Genre.sync({ force: true }),
     VideogameGenre.sync({ force: true }),
