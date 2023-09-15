@@ -23,15 +23,8 @@ const addGame = async (req: Request, res: Response, next: NextFunction) => {
         const platformDB = await Platform.create({ name: platform });
         await game.addPlatform(platformDB.dataValues.id);
     });
-    await Promise.all([genres, platforms]);
-    let Game = await Videogame.findByPk(game.id, { 
-        include: [{ 
-            model: Genre, as: "genres"
-        }, {
-            model: Platform, as: "platforms"
-        }]
-    });
-    return res.status(201).json(Game);
+    await Promise.all([genres, platforms]);    
+    return res.status(201).json({ message: `The game ${game.name} was successfully created` });
 }
 
 export { addGame };

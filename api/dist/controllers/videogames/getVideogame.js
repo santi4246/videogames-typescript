@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getVideogame = void 0;
 const uuid_1 = require("uuid");
 const axios_1 = __importDefault(require("axios"));
+const errors_1 = require("../../utils/errors");
 const Videogame_1 = require("../../models/Videogame");
 const Genre_1 = require("../../models/Genre");
 const Platform_1 = require("../../models/Platform");
@@ -43,6 +44,9 @@ const getVideogame = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
                     img: db.img
                 };
                 return res.status(200).json(game);
+            }
+            else {
+                throw new errors_1.ClientError(404, `Could not found the game`);
             }
         }
         else {

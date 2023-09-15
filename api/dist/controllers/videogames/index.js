@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listGame = exports.addGame = exports.getVideogame = exports.getVideogames = void 0;
+exports.deleteGame = exports.addGame = exports.getVideogame = exports.getVideogames = void 0;
 const getVideogames_1 = require("./getVideogames");
 Object.defineProperty(exports, "getVideogames", { enumerable: true, get: function () { return getVideogames_1.getVideogames; } });
 const getVideogame_1 = require("./getVideogame");
 Object.defineProperty(exports, "getVideogame", { enumerable: true, get: function () { return getVideogame_1.getVideogame; } });
 const addGame_1 = require("./addGame");
 Object.defineProperty(exports, "addGame", { enumerable: true, get: function () { return addGame_1.addGame; } });
-const listGame_1 = require("./listGame");
-Object.defineProperty(exports, "listGame", { enumerable: true, get: function () { return listGame_1.listGame; } });
+const deleteGame_1 = require("./deleteGame");
+Object.defineProperty(exports, "deleteGame", { enumerable: true, get: function () { return deleteGame_1.deleteGame; } });

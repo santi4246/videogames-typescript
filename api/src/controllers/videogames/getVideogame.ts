@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { validate as uuidValidate } from "uuid";
 import axios from "axios";
+import { ClientError } from "../../utils/errors";
 import { Videogame } from "../../models/Videogame";
 import { Genre } from "../../models/Genre";
 import { Platform } from "../../models/Platform";
@@ -41,6 +42,9 @@ const getVideogame = async (req: Request, res: Response, next: NextFunction) => 
                     img: db.img
                 }
                 return res.status(200).json(game);
+            }
+            else {
+                throw new ClientError(404, `Could not found the game`);
             }                
         }
         else {

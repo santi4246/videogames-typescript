@@ -33,13 +33,6 @@ const addGame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         yield game.addPlatform(platformDB.dataValues.id);
     }));
     yield Promise.all([genres, platforms]);
-    let Game = yield Videogame_1.Videogame.findByPk(game.id, {
-        include: [{
-                model: Genre_1.Genre, as: "genres"
-            }, {
-                model: Platform_1.Platform, as: "platforms"
-            }]
-    });
-    return res.status(201).json(Game);
+    return res.status(201).json({ message: `The game ${game.name} was successfully created` });
 });
 exports.addGame = addGame;

@@ -13,7 +13,7 @@ class VideogamesRoutes {
         this.router.get("/", controllers.getVideogames);
         this.router.get("/:id", controllers.getVideogame);
         this.router.post("/", middlewares.validate, controllers.addGame);
-        this.router.get("/test/:id", controllers.listGame);
+        this.router.delete("/:id", middlewares.deleted, controllers.deleteGame);
     }
     
 }
