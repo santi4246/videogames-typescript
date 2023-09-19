@@ -14,6 +14,7 @@ class VideogamesRoutes {
         this.router.get("/:id", controllers.getVideogame);
         this.router.post("/", middlewares.validate, controllers.addGame);
         this.router.delete("/:id", middlewares.deleted, controllers.deleteGame);
+        this.router.put("/:id", middlewares.modified, controllers.modifyGame);
     }
     
 }

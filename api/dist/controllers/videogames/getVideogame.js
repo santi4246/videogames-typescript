@@ -23,7 +23,6 @@ const { APIKEY } = process.env;
 const getVideogame = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     let options = { headers: { "Accept-Encoding": "gzip,deflate,compress" } };
-    let game = { id: "", name: "", launch: "", rating: "", description: "", genres: [""], platforms: [""], img: "" };
     // Validate uuid for searching Database or Api
     try {
         if ((0, uuid_1.validate)(id)) {

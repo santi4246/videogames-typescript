@@ -20,8 +20,7 @@ interface Game {
 
 const getVideogame = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    let options = {headers: {"Accept-Encoding": "gzip,deflate,compress"}};
-    let game: Game = {id: "", name: "", launch: "", rating: "", description: "", genres: [""], platforms: [""], img: ""};
+    let options = {headers: {"Accept-Encoding": "gzip,deflate,compress"}};    
     // Validate uuid for searching Database or Api
     try {
         if (uuidValidate(id)) {
