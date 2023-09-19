@@ -12,3 +12,8 @@ const deleteGame = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 export { deleteGame };
+
+/* 
+Al borrar un registro se debería eliminar todos los registros asociados a dicho elemento.
+Por lo tanto sería prudente también eliminar los géneros y las plataformas asociados a dicho elemento.
+ */
