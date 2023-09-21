@@ -12,6 +12,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const routes_1 = __importDefault(require("./routes"));
 const videogames_1 = __importDefault(require("./routes/videogames"));
+const genres_1 = __importDefault(require("./routes/genres"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -39,6 +40,7 @@ class Server {
         const router = express_1.default.Router();
         this.app.use("/", routes_1.default);
         this.app.use("/api/videogames", videogames_1.default);
+        this.app.use("/api/genres", genres_1.default);
         // Error catching endware        
         this.app.use((err, req, res, next) => {
             res.status(500).json({ message: err.message });

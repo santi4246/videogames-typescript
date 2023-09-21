@@ -29,7 +29,7 @@ export class Videogame extends Model <VideogameAttributes, VideogameInput> imple
     declare readonly updatedAt: Date;
     declare readonly deletedAt: Date;
     declare addGenre: BelongsToManyAddAssociationMixin <Genre, string>
-    declare addPlatform: BelongsToManyAddAssociationMixin <Platform, string>
+    declare addPlatform: BelongsToManyAddAssociationMixin <Platform, string>    
     declare genres: NonAttribute <Genre[]>
     declare platforms: NonAttribute <Platform[]>
 }

@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction, Router } from "express";
-import videogamesRoutes from "./videogames";
 import * as pkg from "../config.json";
 
 class IndexRoutes {
@@ -17,8 +16,7 @@ class IndexRoutes {
                 description: pkg.description,
                 version: pkg.version
             });
-        });
-        this.router.get("/videogames", videogamesRoutes);
+        });        
     }
 }
 

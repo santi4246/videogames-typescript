@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import indexRoutes from "./routes";
 import videogamesRouter from './routes/videogames';
+import genresRouter from "./routes/genres";
 
 class Server {
     public app: express.Application;
@@ -38,6 +39,7 @@ class Server {
         const router: express.Router = express.Router();
         this.app.use("/", indexRoutes);
         this.app.use("/api/videogames", videogamesRouter);
+        this.app.use("/api/genres", genresRouter);
         // Error catching endware        
         this.app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
             res.status(500).json({message: err.message});

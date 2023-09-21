@@ -24,23 +24,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const pkg = __importStar(require("../config.json"));
-class IndexRoutes {
+const controllers = __importStar(require("../../controllers/genres"));
+class GenresRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
         this.routes();
     }
     routes() {
-        this.router.get("/", (req, res, next) => {
-            return res.status(200).json({
-                author: pkg.author,
-                name: pkg.name,
-                description: pkg.description,
-                version: pkg.version
-            });
-        });
+        this.router.get("/", controllers.getGenres);
     }
 }
-const indexRoutes = new IndexRoutes();
-indexRoutes.routes();
-exports.default = indexRoutes.router;
+const genresRoutes = new GenresRoutes();
+genresRoutes.routes();
+exports.default = genresRoutes.router;

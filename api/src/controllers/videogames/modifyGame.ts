@@ -3,6 +3,8 @@ import { Videogame, VideogameInput } from "../../models/Videogame";
 import { Genre } from "../../models/Genre";
 import { Platform } from "../../models/Platform";
 import { ClientError } from "../../utils/errors";
+import { VideogameGenre } from "../../models/Videogame_Genre";
+import { VideogamePlatform } from "../../models/Videogame_Platform";
 
 const modifyGame = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
@@ -18,14 +20,26 @@ const modifyGame = async (req: Request, res: Response, next: NextFunction) => {
     if (!game) {
         throw new ClientError(404, `The game cannot found on the database`);
     }
-    req.body.genres.map(async (e: string) => {
-        const genre = await Genre.findOrCreate({ where: { name: e } });
-        game?.addGenre(genre[0].dataValues.id);
-    });
-    req.body.platforms.map(async (e: string) => {
-        const platform = await Platform.findOrCreate({ where: { name: e } });
-        game?.addPlatform(platform[0].dataValues.id);
-    });
+    if (req.body.genres) {
+        const genres = await VideogameGenre.findAll({ where: { VideogameId: id } });
+        genres.map(async (e: VideogameGenre) => {
+            await Genre.destroy({ where: { id: e.GenreId } });
+        });
+        req.body.genres.map(async (e: string) => {
+            const genreDB = await Genre.create({ name: e });
+            await game?.addGenre(genreDB.dataValues.id);
+        });
+    }
+    if (req.body.platforms) {
+        const platforms = await VideogamePlatform.findAll({ where: { VideogameId: id } });
+        platforms.map(async (e: VideogamePlatform) => {
+            await Platform.destroy({ where: { id: e.PlatformId } });
+        });
+        req.body.platforms.map(async (e: string) => {
+            const platformDB = await Platform.create({ name: e });
+            await game?.addPlatform(platformDB.dataValues.id);
+        });
+    }
     let message = await Videogame.update(params, { where: {id: params.id} });
     return res.status(200).json({ message: `The game ${params.name} was successfully modified. ${message}` });
 }
